@@ -249,22 +249,22 @@ if (password !== "6911") {
         </div>
       </section>
 
-      <section className="card">
-        <h2>クラス別集計</h2>
+     <section className="card">
+  <h2>クラス別集計</h2>
 
-        {classSummary.length === 0 && (
-          <p>まだ提出データがありません。</p>
-        )}
+  {classSummary.length === 0 && (
+    <p>まだ提出データがありません。</p>
+  )}
 
-      {classSummary.map((item) => (
-  <div key={item.className} className="history">
-    <p>
-      <strong>{item.className}</strong>
-    </p>
-    <p>提出数：{item.count}件</p>
+  <div className="classSummaryGrid">
+    {classSummary.map((item) => (
+      <div key={item.className} className="classSummaryChip">
+        <strong>{item.className}</strong>
+        <span>{item.count}件</span>
+      </div>
+    ))}
   </div>
-))}
-      </section>
+</section>
 <section className="card">
   <h2>生徒別提出履歴</h2>
 
