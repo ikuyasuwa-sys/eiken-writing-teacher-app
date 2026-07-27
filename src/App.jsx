@@ -399,54 +399,7 @@ if (password !== "6911") {
   ))}
 </section>
 ``
-      <section className="card">
-        <h2>提出一覧</h2>
 
-        {filteredTeacherData.length === 0 && (
-          <p>表示する提出データがありません。</p>
-        )}
-
-        {filteredTeacherData.map((item) => (
-          <details key={item.id} className="history">
-            <summary className="submissionSummary">
-              <strong>
-                {item.className || "クラス未入力"} /{" "}
-                {item.studentNumber
-                  ? `${item.studentNumber}番`
-                  : item.studentName || "番号未入力"}
-              </strong>
-
-              <span>
-                {item.level}・{item.score ?? 0}点・{item.words ?? 0}語
-              </span>
-            </summary>
-
-            <div className="submissionDetail">
-              <p>生徒ID：{item.studentId || "未設定"}</p>
-              <p>級：{item.level}</p>
-              <p>形式：{item.taskType}</p>
-              <p>問題：{item.topic}</p>
-              <p>得点：{item.score}</p>
-              <p>満点：{item.maxScore || ""}</p>
-              <p>語数：{item.words}</p>
-
-              {item.essay && (
-                <details className="innerDetails">
-                  <summary>英文を見る</summary>
-                  <p>{item.essay}</p>
-                </details>
-              )}
-
-              {item.aiComment && (
-                <details className="innerDetails">
-                  <summary>AI総評を見る</summary>
-                  <p>{item.aiComment}</p>
-                </details>
-              )}
-            </div>
-          </details>
-        ))}
-      </section>
     </main>
   );
 }
