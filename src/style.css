@@ -428,3 +428,9 @@ select:focus {
   font-weight: 800;
 }
 ``
+.submittedDate {
+  color: #475569;
+  font-size: 15px;
+  font-weight: 700;
+  margin-top: -4px;
+}
