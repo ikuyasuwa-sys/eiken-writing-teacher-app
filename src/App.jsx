@@ -131,7 +131,56 @@ export default function App() {
       avgWords
     };
   });
+const studentHistoryGroups = {};
 
+teacherData.forEach((item) => {
+  const studentKey =
+    item.studentId ||
+    `${item.className || "クラス未入力"}-${item.studentNumber || item.studentName || "番号未入力"}`;
+
+  if (!studentHistoryGroups[studentKey]) {
+    studentHistoryGroups[studentKey] = {
+      studentId: studentKey,
+      className: item.className || "クラス未入力",
+      studentNumber: item.studentNumber || "",
+      studentName: item.studentName || "",
+      records: []
+    };
+  }
+
+  studentHistoryGroups[studentKey].records.push(item);
+});
+
+const studentHistories = Object.values(studentHistoryGroups).map((group) => {
+  const records = group.records;
+
+  const averageScore =
+    records.length > 0
+      ? (
+          records.reduce(
+            (sum, item) => sum + Number(item.score || 0),
+            0
+          ) / records.length
+        ).toFixed(1)
+      : "0.0";
+
+  const averageWords =
+    records.length > 0
+      ? Math.round(
+          records.reduce(
+            (sum, item) => sum + Number(item.words || 0),
+            0
+          ) / records.length
+        )
+      : 0;
+
+  return {
+    ...group,
+    count: records.length,
+    averageScore,
+    averageWords
+  };
+});
   function downloadTeacherCsv() {
     const header = [
       "クラス",
@@ -295,7 +344,61 @@ if (password !== "6911") {
           </div>
         ))}
       </section>
+<section className="card">
+  <h2>生徒別提出履歴</h2>
 
+  {studentHistories.length === 0 && (
+    <p>まだ提出履歴がありません。</p>
+  )}
+
+  {studentHistories.map((student) => (
+    <details key={student.studentId} className="history">
+      <summary className="submissionSummary">
+        <strong>
+          {student.className} /{" "}
+          {student.studentNumber
+            ? `${student.studentNumber}番`
+            : student.studentName || "番号未入力"}
+        </strong>
+
+        <span>
+          提出{student.count}回・平均{student.averageScore}点・平均{student.averageWords}語
+        </span>
+      </summary>
+
+      <div className="submissionDetail">
+        {student.records.map((item, index) => (
+          <div key={item.id} className="innerDetails">
+            <p>
+              <strong>{index + 1}回目</strong>
+            </p>
+
+            <p>級：{item.level}</p>
+            <p>形式：{item.taskType}</p>
+            <p>問題：{item.topic}</p>
+            <p>得点：{item.score}</p>
+            <p>語数：{item.words}</p>
+
+            {item.essay && (
+              <details>
+                <summary>英文を見る</summary>
+                <p>{item.essay}</p>
+              </details>
+            )}
+
+            {item.aiComment && (
+              <details>
+                <summary>AI総評を見る</summary>
+                <p>{item.aiComment}</p>
+              </details>
+            )}
+          </div>
+        ))}
+      </div>
+    </details>
+  ))}
+</section>
+``
       <section className="card">
         <h2>提出一覧</h2>
 
