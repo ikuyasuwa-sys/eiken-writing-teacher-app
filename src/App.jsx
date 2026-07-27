@@ -297,10 +297,43 @@ if (password !== "6911") {
             </p>
 
             <p>級：{item.level}</p>
-            <p>形式：{item.taskType}</p>
-            <p>問題：{item.topic}</p>
-            <p>得点：{item.score}</p>
-            <p>語数：{item.words}</p>
+<p>形式：{item.taskType}</p>
+<p>問題：{item.topic}</p>
+
+<p>
+  得点：
+  {item.score ?? 0} / {item.maxScore || (item.taskType === "Eメール" ? 9 : 16)}
+</p>
+
+<div className="scoreBreakdown">
+  <p>
+    内容：
+    {item.aiScoreContent ?? "-"} / {item.taskType === "Eメール" ? 3 : 4}
+  </p>
+
+  {item.taskType !== "Eメール" && (
+    <p>
+      構成：
+      {item.aiScoreOrganization ?? "-"} / 4
+    </p>
+  )}
+
+  <p>
+    語彙：
+    {item.aiScoreVocabulary ?? "-"} / {item.taskType === "Eメール" ? 3 : 4}
+  </p>
+
+  <p>
+    文法：
+    {item.aiScoreGrammar ?? "-"} / {item.taskType === "Eメール" ? 3 : 4}
+  </p>
+</div>
+
+<p>
+  語数：
+  {item.words ?? 0}語
+  {item.wordRange ? ` / 目安 ${item.wordRange}` : ""}
+</p>
 
             {item.essay && (
               <details>
