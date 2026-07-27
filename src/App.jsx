@@ -239,9 +239,9 @@ if (password !== "6911") {
       <section className="hero card">
         <div>
           <p className="eyebrow">英検ライティング管理画面</p>
-          <h1>先生用ダッシュボード</h1>
+          
           <p>
-            Firestoreに保存された生徒の提出結果を確認できます。
+           生徒の添削結果を確認できます。
           </p>
         </div>
 
