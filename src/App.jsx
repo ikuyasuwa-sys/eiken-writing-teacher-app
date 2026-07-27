@@ -11,6 +11,25 @@ import "./style.css";
 function csvEscape(value) {
   return `"${String(value ?? "").replaceAll('"', '""')}"`;
 }
+const fixedClassOrder = [
+  "1年1組",
+  "1年2組",
+  "1年3組",
+  "1年4組",
+  "1年5組",
+
+  "2年1組",
+  "2年2組",
+  "2年3組",
+  "2年4組",
+  "2年5組",
+
+  "3年1組",
+  "3年2組",
+  "3年3組",
+  "3年4組",
+  "3年5組"
+];
 
 export default function App() {
   const [password, setPassword] = useState("");
@@ -91,15 +110,7 @@ export default function App() {
         )
       : 0;
 
-  const classOptions = [
-    ...new Set(
-      teacherData
-        .map((item) => item.className)
-        .filter(Boolean)
-    )
-  ];
-
-  const classSummary = classOptions.map((className) => {
+ const classSummary = fixedClassOrder.map((className) => {
   const records = teacherData.filter(
     (item) => item.className === className
   );
@@ -252,10 +263,6 @@ if (password !== "6911") {
      <section className="card">
   <h2>クラス別集計</h2>
 
-  {classSummary.length === 0 && (
-    <p>まだ提出データがありません。</p>
-  )}
-
   <div className="classSummaryGrid">
     {classSummary.map((item) => (
       <div key={item.className} className="classSummaryChip">
@@ -291,9 +298,15 @@ if (password !== "6911") {
         {student.records.map((item, index) => (
           <div key={item.id} className="innerDetails">
             <p>
-              <strong>{index + 1}回目</strong>
-            </p>
+  <strong>{index + 1}回目</strong>
+</p>
 
+<p className="submittedDate">
+  提出日時：
+  {item.createdAt?.toDate
+    ? item.createdAt.toDate().toLocaleString("ja-JP")
+    : "日時なし"}
+</p>
             <p>級：{item.level}</p>
 <p>形式：{item.taskType}</p>
 <p>問題：{item.topic}</p>
