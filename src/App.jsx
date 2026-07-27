@@ -154,9 +154,7 @@ const studentHistories = Object.values(studentHistoryGroups).map((group) => {
 
   return {
     ...group,
-    count: records.length,
-    averageScore,
-    averageWords
+    count: records.length 
   };
 });
   function downloadTeacherCsv() {
@@ -285,7 +283,7 @@ if (password !== "6911") {
         </strong>
 
         <span>
-          提出{student.count}回・平均{student.averageScore}点・平均{student.averageWords}語
+          提出{student.count}回
         </span>
       </summary>
 
