@@ -396,14 +396,14 @@ select:focus {
   font-weight: 700;
 }
 .classSummaryGrid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
   gap: 12px;
   margin-top: 16px;
 }
 
 .classSummaryChip {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
@@ -426,6 +426,7 @@ select:focus {
 .classSummaryChip span {
   color: #2563eb;
   font-weight: 800;
+  font-size: 18px;
 }
 ``
 .submittedDate {
