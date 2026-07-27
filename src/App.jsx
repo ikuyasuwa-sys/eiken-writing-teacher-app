@@ -100,37 +100,15 @@ export default function App() {
   ];
 
   const classSummary = classOptions.map((className) => {
-    const records = teacherData.filter(
-      (item) => item.className === className
-    );
+  const records = teacherData.filter(
+    (item) => item.className === className
+  );
 
-    const avgScore =
-      records.length > 0
-        ? (
-            records.reduce(
-              (sum, item) => sum + Number(item.score || 0),
-              0
-            ) / records.length
-          ).toFixed(1)
-        : "0.0";
-
-    const avgWords =
-      records.length > 0
-        ? Math.round(
-            records.reduce(
-              (sum, item) => sum + Number(item.words || 0),
-              0
-            ) / records.length
-          )
-        : 0;
-
-    return {
-      className,
-      count: records.length,
-      avgScore,
-      avgWords
-    };
-  });
+  return {
+    className,
+    count: records.length
+  };
+});
 const studentHistoryGroups = {};
 
 teacherData.forEach((item) => {
@@ -274,75 +252,20 @@ if (password !== "6911") {
       </section>
 
       <section className="card">
-        <h2>集計</h2>
-
-        <div className="grid2">
-          <div className="history">
-            <strong>提出件数</strong>
-            <p>{totalSubmissions}件</p>
-          </div>
-
-          <div className="history">
-            <strong>平均点</strong>
-            <p>{averageScore}点</p>
-          </div>
-
-          <div className="history">
-            <strong>平均語数</strong>
-            <p>{averageWords}語</p>
-          </div>
-
-          <div className="history">
-            <strong>全データ件数</strong>
-            <p>{teacherData.length}件</p>
-          </div>
-        </div>
-
-        <div className="grid2" style={{ marginTop: "16px" }}>
-          <label>
-            出席番号検索
-            <input
-              value={teacherSearch}
-              onChange={(e) => setTeacherSearch(e.target.value)}
-              placeholder="例：17"
-            />
-          </label>
-
-          <label>
-            クラス絞り込み
-            <select
-              value={classFilter}
-              onChange={(e) => setClassFilter(e.target.value)}
-            >
-              <option value="">すべてのクラス</option>
-
-              {classOptions.map((className) => (
-                <option key={className} value={className}>
-                  {className}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
-      </section>
-
-      <section className="card">
         <h2>クラス別集計</h2>
 
         {classSummary.length === 0 && (
           <p>まだ提出データがありません。</p>
         )}
 
-        {classSummary.map((item) => (
-          <div key={item.className} className="history">
-            <p>
-              <strong>{item.className}</strong>
-            </p>
-            <p>提出数：{item.count}件</p>
-            <p>平均点：{item.avgScore}点</p>
-            <p>平均語数：{item.avgWords}語</p>
-          </div>
-        ))}
+      {classSummary.map((item) => (
+  <div key={item.className} className="history">
+    <p>
+      <strong>{item.className}</strong>
+    </p>
+    <p>提出数：{item.count}件</p>
+  </div>
+))}
       </section>
 <section className="card">
   <h2>生徒別提出履歴</h2>
