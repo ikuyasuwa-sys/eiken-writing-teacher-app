@@ -13,6 +13,7 @@ function csvEscape(value) {
 }
 
 export default function App() {
+  const [password, setPassword] = useState("");
   const [teacherData, setTeacherData] = useState([]);
   const [teacherSearch, setTeacherSearch] = useState("");
   const [classFilter, setClassFilter] = useState("");
@@ -175,7 +176,28 @@ export default function App() {
     a.click();
     URL.revokeObjectURL(url);
   }
+if (password !== "6911") {
+  return (
+    <main className="app">
+      <section className="card">
+        <h1>先生用ログイン</h1>
 
+        <p>
+          パスワードを入力してください。
+        </p>
+
+        <input
+          type="password"
+          value={password}
+          onChange={(e) =>
+            setPassword(e.target.value)
+          }
+          placeholder="パスワード"
+        />
+      </section>
+    </main>
+  );
+}
   return (
     <main className="app">
       <section className="hero card">
